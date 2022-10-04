@@ -34,7 +34,6 @@ window.onload = () => {
         toDos.push(toDoText);
         updateToDos(toDos);
         render();
-
         console.log(toDos)
 
     }

@@ -1,26 +1,5 @@
 const toDos = JSON.parse(localStorage.getItem('todosLS')) || [];
 
-const render = () => {
-    const toDoList = document.getElementById('toDo-list');
-
-    const toDosTemplate = toDos.map(t => '<li>' + t + '</li>');
-
-    toDoList.innerHTML = toDosTemplate.join('');
-
-    const elements = document.querySelectorAll('#toDo-list li')
-    elements.forEach((element, i) => {
-
-        element.addEventListener('click', () => {
-            console.log(element, i)
-            element.parentNode.removeChild(element);
-            toDos.splice(i, 1)
-            updateToDos(toDos);
-            render();
-
-        })
-    })
-}
-
 window.onload = () => {
     render();
     const form = document.getElementById('toDo-form');
@@ -34,12 +13,42 @@ window.onload = () => {
         toDos.push(toDoText);
         updateToDos(toDos);
         render();
-        console.log(toDos)
-
     }
+
+    createImage();
+}
+
+const render = () => {
+    const toDoList = document.getElementById('toDo-list');
+
+    const toDosTemplate = toDos.map(t => '<li>' + t + '</li>');
+
+    toDoList.innerHTML = toDosTemplate.join('');
+
+    const elements = document.querySelectorAll('#toDo-list li')
+    elements.forEach((element, i) => {
+
+        element.addEventListener('click', () => {
+
+            element.parentNode.removeChild(element);
+            toDos.splice(i, 1)
+            updateToDos(toDos);
+            render();
+
+        })
+    })
 }
 
 const updateToDos = (toDos) => {
     const toDosString = JSON.stringify(toDos);
     localStorage.setItem('todosLS', toDosString);
+}
+
+const createImage = () =>{
+    const image = document.createElement("IMG");
+    image.setAttribute("src", "assets/bilardo.jpg");
+    image.setAttribute("width", "220");
+    image.setAttribute("height", "220");
+    image.setAttribute("alt", "The Pulpit Rock");
+    document.body.appendChild(image);
 }
